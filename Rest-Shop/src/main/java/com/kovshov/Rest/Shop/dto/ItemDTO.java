@@ -1,69 +1,25 @@
-package com.kovshov.Rest.Shop.model;
+package com.kovshov.Rest.Shop.dto;
 
-import jakarta.persistence.*;
-import lombok.Data;
-
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Data
-@Entity
-public class Item {
-    @Id
-    private Long id;
-
-    @Column(name = "title")
+public class ItemDTO {
     private String title;
-
-    @Column(name = "description")
     private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "company")
-    private Company company;
-
-    @Column(name = "price")
+    private String company;
     private Float price;
-
-    @Column(name = "quantiy")
     private Long quantiy;
-
-    @Column(name = "discount")
     private Float discount;
-
-    @Column(name = "review")
     private String review;
-
-    @Column(name = "rating")
     private Float rating;
-
-    @ElementCollection
-    @CollectionTable(name="keyword", joinColumns = @JoinColumn(name = "item_id"))
-    @Column(name = "word")
     private Set<String> keywords;
-
-    @ElementCollection
-    @CollectionTable(name="parametr", joinColumns = @JoinColumn(name = "item_id"))
-    @MapKeyColumn(name = "key_parametr")
-    @Column(name = "value_parametr")
     private Map<String, String> parametrs;
 
-    @ManyToMany
-    @JoinTable(
-            name = "order_item",
-            joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id")
-    )
-    private List<Order> orders;
-
-    public Item() {
+    public ItemDTO() {
     }
 
-    public Item(Long id, String title, String description, Company company, Float price, Long quantiy,
-                Float discount, String review, Float rating, Set<String> keywords, Map<String, String> parametrs,
-                List<Order> orders) {
-        this.id = id;
+    public ItemDTO(String title, String description, String company, Float price, Long quantiy, Float discount,
+                   String review, Float rating, Set<String> keywords, Map<String, String> parametrs) {
         this.title = title;
         this.description = description;
         this.company = company;
@@ -74,15 +30,6 @@ public class Item {
         this.rating = rating;
         this.keywords = keywords;
         this.parametrs = parametrs;
-        this.orders = orders;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -101,11 +48,11 @@ public class Item {
         this.description = description;
     }
 
-    public Company getCompany() {
+    public String getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
+    public void setCompany(String company) {
         this.company = company;
     }
 
@@ -163,17 +110,5 @@ public class Item {
 
     public void setParametrs(Map<String, String> parametrs) {
         this.parametrs = parametrs;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public String getCompanyToString(){
-        return company.getTitle();
     }
 }
