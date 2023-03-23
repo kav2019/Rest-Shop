@@ -4,6 +4,7 @@ import com.kovshov.Rest.Shop.model.role.Role;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -35,13 +36,21 @@ public class User {
     @OneToMany(mappedBy = "owner")
     private List<Company> companyList;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orderList;
+//    @OneToMany(mappedBy = "user")
+//    private List<Order> orderList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "orders",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private List<Item> itemList;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, Float balance, boolean status, List<Company> companyList, List<Order> orderList) {
+    public User(Long id, String username, String password, String email, Float balance, boolean status, List<Company> companyList, List<Item> itemList) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -49,7 +58,7 @@ public class User {
         this.balance = balance;
         this.status = status;
         this.companyList = companyList;
-        this.orderList = orderList;
+        this.itemList = itemList;
     }
 
     public Long getId() {
@@ -108,11 +117,23 @@ public class User {
         this.companyList = companyList;
     }
 
-    public List<Order> getOrderList() {
-        return orderList;
+    public List<Item> getItemList() {
+        return itemList;
     }
 
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
+    }
+
+    public List<String> getAllCompanyAsString(){
+        return companyList.stream()
+                .map(c -> c.getTitle())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getAllItemsAsString(){
+        return itemList.stream()
+                .map(i -> i.getTitle())
+                .collect(Collectors.toList());
     }
 }

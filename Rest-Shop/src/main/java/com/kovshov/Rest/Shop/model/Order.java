@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "orders")
@@ -24,23 +25,18 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "order_item",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id")
-    )
-    private List<Item> items;
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     public Order() {
     }
 
-    public Order(Long id, Date dateCreate, User user, List<Item> items) {
+    public Order(Long id, Date dateCreate, User user, Item item) {
         this.id = id;
         this.dateCreate = dateCreate;
         this.user = user;
-        this.items = items;
+        this.item = item;
     }
 
     public Long getId() {
@@ -67,11 +63,11 @@ public class Order {
         this.user = user;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public Item getItem() {
+        return item;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

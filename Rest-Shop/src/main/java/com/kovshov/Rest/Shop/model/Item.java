@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -51,18 +52,17 @@ public class Item {
 
     @ManyToMany
     @JoinTable(
-            name = "order_item",
+            name = "orders",
             joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id")
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<Order> orders;
+    private List<User> userList;
 
     public Item() {
     }
 
-    public Item(Long id, String title, String description, Company company, Float price, Long quantiy,
-                Float discount, String review, Float rating, Set<String> keywords, Map<String, String> parametrs,
-                List<Order> orders) {
+    public Item(Long id, String title, String description, Company company, Float price, Long quantiy, Float discount,
+                String review, Float rating, Set<String> keywords, Map<String, String> parametrs, List<User> userList) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -74,7 +74,7 @@ public class Item {
         this.rating = rating;
         this.keywords = keywords;
         this.parametrs = parametrs;
-        this.orders = orders;
+        this.userList = userList;
     }
 
     public Long getId() {
@@ -165,15 +165,15 @@ public class Item {
         this.parametrs = parametrs;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 
     public String getCompanyToString(){
         return company.getTitle();
+    }
+
+    public List<String> getOwnerToListString(){
+        return userList.stream()
+                .map(u -> u.getEmail())
+                .collect(Collectors.toList());
     }
 }

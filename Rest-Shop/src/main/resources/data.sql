@@ -26,3 +26,9 @@
 -- Parametr
 -- insert into parametr (item_id, key_parametr, value_parametr) values (1, 'pavel key parametr', 'pavel value parametr');
 -- insert into parametr (item_id, key_parametr, value_parametr) values (1, 'pavel key parametr 2', 'pavel value parametr 2');
+
+
+-- Order
+insert into orders (item_id, user_id, datecreate) values (1, 1, now());
+insert into orders (item_id, user_id, datecreate) values (1, 2, now());
+insert into orders (item_id, user_id, datecreate) values (2, 2, now());

@@ -1,5 +1,6 @@
 package com.kovshov.Rest.Shop.dto;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,11 +16,14 @@ public class ItemDTO {
     private Set<String> keywords;
     private Map<String, String> parametrs;
 
+    private List<String> owner;
+
     public ItemDTO() {
     }
 
     public ItemDTO(String title, String description, String company, Float price, Long quantiy, Float discount,
-                   String review, Float rating, Set<String> keywords, Map<String, String> parametrs) {
+                   String review, Float rating, Set<String> keywords, Map<String, String> parametrs,
+                   List<String> userList) {
         this.title = title;
         this.description = description;
         this.company = company;
@@ -30,6 +34,7 @@ public class ItemDTO {
         this.rating = rating;
         this.keywords = keywords;
         this.parametrs = parametrs;
+        this.owner = userList;
     }
 
     public String getTitle() {
@@ -110,5 +115,13 @@ public class ItemDTO {
 
     public void setParametrs(Map<String, String> parametrs) {
         this.parametrs = parametrs;
+    }
+
+    public List<String> getOwner() {
+        return owner;
+    }
+
+    public void setOwner(List<String> owner) {
+        this.owner = owner;
     }
 }
