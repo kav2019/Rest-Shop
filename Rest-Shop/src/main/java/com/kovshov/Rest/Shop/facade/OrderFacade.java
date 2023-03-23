@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 public class OrderFacade {
     public OrderDTO orderToOrderDTO(Order order) {
         OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setUser(order.getUser().getEmail());
-//        orderDTO.setItems(order.getListItemToString());
+        orderDTO.setUser(order.getUserAsString());
+        orderDTO.setItem(order.getItemAsString());
         orderDTO.setDateCreate(order.getDateCreate());
         return orderDTO;
     }

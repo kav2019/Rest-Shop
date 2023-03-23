@@ -5,15 +5,15 @@ import java.util.List;
 
 public class OrderDTO {
     private String user;
-    private List<String> items;
+    private String item;
     private Date dateCreate;
 
     public OrderDTO() {
     }
 
-    public OrderDTO(String user, List<String> items, Date dateCreate) {
+    public OrderDTO(String user, String item, Date dateCreate) {
         this.user = user;
-        this.items = items;
+        this.item = item;
         this.dateCreate = dateCreate;
     }
 
@@ -25,12 +25,12 @@ public class OrderDTO {
         this.user = user;
     }
 
-    public List<String> getItems() {
-        return items;
+    public String getItem() {
+        return item;
     }
 
-    public void setItems(List<String> items) {
-        this.items = items;
+    public void setItem(String item) {
+        this.item = item;
     }
 
     public Date getDateCreate() {

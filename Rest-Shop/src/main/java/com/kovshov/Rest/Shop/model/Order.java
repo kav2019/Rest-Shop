@@ -70,4 +70,12 @@ public class Order {
     public void setItem(Item item) {
         this.item = item;
     }
+
+    public String getUserAsString(){
+        return user.getEmail();
+    }
+
+    public String getItemAsString(){
+        return item.getTitle();
+    }
 }
